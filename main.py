@@ -1,19 +1,18 @@
-#importing libraries
 import requests
 import json
 import time
 
-#GoDaddyAPI Private Keys
+# GoDaddyAPI Private Keys
 ApiKey = "your ApiKey"
 SecretKey = "your SecretKey"
 
-#connecting to server
+# connecting to server
 headers = {"Authorization" : "sso-key {}:{}".format(ApiKey, SecretKey)}
 
-#GoDaddy API endpoints
+# GoDaddy API endpoints
 url = "https://api.godaddy.com/v1/domains/available"
 
-#Getting user input for the second level domain to be searched  
+# Getting user input for the second level domain to be searched  
 domain_tld = input("Insert the domains you'd like to check.\nName format should be just the domain name (SLD)\nseparated by a space:\n")
 print (" ")
 
@@ -23,10 +22,10 @@ domain=[]
 for i in domain_notld:
     domain.append(i+".com")
 
-#API call (POST)
+# API call (POST)
 availability_res = requests.post(url, json=domain, headers=headers)
 
-#Getting back the result to the user 
+# Getting back the result to the user 
 for domain in json.loads(availability_res.text)['domains']:
     if domain['available']:
         print ("Domain Name:", domain["domain"])
